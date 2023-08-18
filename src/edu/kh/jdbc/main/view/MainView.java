@@ -133,7 +133,14 @@ public class MainView {
 		
 		try {
 			
-			Session.loginMember = service.singUp(memberId, memberPw, memberPwRe, memberName, memberGender);
+			int result = service.singUp(memberId, memberPw, memberName, memberGender);
+			
+			if(result > 0) {
+				System.out.println("회원 가입 성공");
+			} else {
+				System.out.println("아이디 중복");
+			}
+			
 			
 		} catch(Exception e) {
 			System.out.println("\n *** 회원가입 중 예외발생 ***\n");

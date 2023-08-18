@@ -101,28 +101,41 @@ public class MainDAO {
 	}
 
 
-	public Member singUp(Connection conn, String memberId, String memberPw,
-			String memberPwRe, String memberName, String memberGender) throws Exception {
+	public int singUp(Connection conn, String memberId, String memberPw,
+			String memberName, String memberGender) throws Exception {
 		
-		Member member = null;
+		int result = 0;
 		
 		try {
 			
-			String sql = prop.getProperty("singUp");
+			String searchId = prop.getProperty("serchId");
 			
-			pstmt = conn.prepareStatement(sql);
+			pstmt = conn.prepareStatement(searchId);
 			
 			pstmt.setString(1, memberId);
-			pstmt.setString(2, memberPw);
-			pstmt.setString(3, memberName);
-			pstmt.setString(4, memberGender);
+			
+			if(result > 0) {
+				
+				result = pstmt.executeUpdate();
 
+				String sql = prop.getProperty("singUp");
+
+				pstmt = conn.prepareStatement(sql);
+
+				pstmt.setString(1, memberId);
+				pstmt.setString(2, memberPw);
+				pstmt.setString(3, memberName);
+				pstmt.setString(4, memberGender);
+
+				result = pstmt.executeUpdate();
+			
+			}
 			
 		} finally {
-			
+			close(pstmt);
 		}
 		
-		return member;
+		return result;
 	}
 
 }

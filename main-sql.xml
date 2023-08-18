@@ -13,11 +13,16 @@
 	AND UNREGISTER_FL = 'N'
 	</entry>
 	
-	<entry key = "singUp">
-	INSERT INTO "MEMBER"
-	VALUES(SEQ_MEMBER_NO.NEXTVAL,
-	?, ? , ? , ? , DEFAULT, DEFAULT)
+	<entry key = "serchId">
+	SELECT COUNT(*)
+	FROM MEMBER
+	WHERE MEMBER_ID = ?
 	</entry>
-
+	
+	<entry key = "singUp">
+	INSERT INTO MEMBER
+	VALUES(SEQ_MEMBER_NO.NEXTVAL,
+	? , ? , ? , ? , DEFAULT, DEFAULT)
+	</entry>
 
 </properties>

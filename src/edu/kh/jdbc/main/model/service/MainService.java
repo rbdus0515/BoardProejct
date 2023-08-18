@@ -31,17 +31,50 @@ public class MainService {
 		return member;
 	}
 
-	public Member singUp(String memberId, String memberPw, String memberPwRe,
+	public int singUp(String memberId, String memberPw,
 			String memberName, String memberGender) throws Exception {
 		
 		Connection conn = getConnection();
 		
-		Member member = dao.singUp(conn, memberId, memberPw,
-				memberPwRe, memberName, memberGender);
+		int result = dao.singUp(conn, memberId, memberPw,
+				 memberName, memberGender);
+		
+		if(result > 0) commit(conn);
+		else			rollback(conn);
 		
 		close(conn);
 		
-		return member;
+		return result;
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
