@@ -42,7 +42,7 @@ public class MemberView {
 				switch(input) {
 				case 1 : selectMyInfo(); break;
 				case 2 : selectMemberList(); break;
-//				case 3 : selectMember(); break;
+				case 3 : updateMember(); break;
 //				case 4 : selectPassWord(); break;
 				case 5 :  break;
 				case 9 : System.out.println("\n 메인메뉴로 돌아갑니다. \n"); break;
@@ -61,16 +61,6 @@ public class MemberView {
 
 	
 	
-	
-	
-	
-	
-	
-	
-
-
-
-
 
 
 
@@ -125,6 +115,56 @@ public class MemberView {
 		}
 		
 	}
+
+	
+
+	/** 내 정보 수정
+	 * 
+	 */
+	private void updateMember() {
+		System.out.println("\n ===== 내 정보 수정 ===== \n");
+		
+		System.out.print("수정할 이름 : ");
+		String memberName = sc.next();
+		
+		String memberGender = null;
+		while(true) {
+			System.out.println("수정할 성별 (M/F) : ");
+			
+			memberGender = sc.next().toUpperCase();
+			
+			if(memberGender.equals("M") || memberGender.equals("F")) {
+				break;
+			}
+			
+			System.out.println("[M/F 입력]");
+		}
+		try {
+			int result = service.updateMember(memberName, memberGender, Session.loginMember.getMemberNo());
+			
+			
+			if(result > 0) {
+				System.out.println("\n === 수정 되었습니다. === \n");
+				
+				// DB와 Java 프로그램 데이터 동기화 필요!
+				Session.loginMember.setMemberName(memberName);
+				Session.loginMember.setMemberGender(memberGender);
+				
+				
+			} else {
+				System.out.println("\n === 수정 실패 === \n");
+			}
+			
+			
+			
+		} catch(Exception e) {
+			System.out.println("\n 내 정보 수정 중 예외 발생 \n");
+			e.printStackTrace();
+		}
+		
+		
+	}
+
 
 	
 	

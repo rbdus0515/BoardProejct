@@ -12,5 +12,12 @@
 	WHERE UNREGISTER_FL = 'N'
 	ORDER BY MEMBER_NO DESC
 	</entry>
+	
+	<entry key = "updateMember">
+	UPDATE MEMBER SET
+	MEMBER_NM = ?,
+	MEMBER_GENDER = ?,
+	WHERE MEMBER_NO = ?
+	</entry>
 
 </properties>
