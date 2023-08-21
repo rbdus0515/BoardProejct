@@ -13,16 +13,21 @@
 	AND UNREGISTER_FL = 'N'
 	</entry>
 	
-	<entry key = "serchId">
+	<!-- 중복 아이디 확인 -->
+	<entry key = "idCheak">
 	SELECT COUNT(*)
 	FROM MEMBER
-	WHERE MEMBER_ID = ?
+	WHERE UNREGISTER_FL = 'N'
+	AND MEMBER_ID = ?
 	</entry>
 	
+	<!-- 회원가입 -->
 	<entry key = "singUp">
 	INSERT INTO MEMBER
 	VALUES(SEQ_MEMBER_NO.NEXTVAL,
 	? , ? , ? , ? , DEFAULT, DEFAULT)
 	</entry>
+
+
 
 </properties>

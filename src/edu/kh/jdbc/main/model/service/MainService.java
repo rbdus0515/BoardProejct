@@ -30,22 +30,48 @@ public class MainService {
 		// 4. 결과 반환
 		return member;
 	}
-
-	public int singUp(String memberId, String memberPw,
-			String memberName, String memberGender) throws Exception {
+	
+	/** 아이디 중복 검사 서비스
+	 * @param memberId
+	 * @return
+	 * @throws Exception 
+	 */
+	public int idCheck(String memberId) throws Exception {
 		
 		Connection conn = getConnection();
 		
-		int result = dao.singUp(conn, memberId, memberPw,
-				 memberName, memberGender);
+		int result = dao.idCheak(conn, memberId);
 		
+		close(conn);
+		
+		return result;
+	}
+
+	/** 회원가입 서비스
+	 * @param mem 
+	 * @return result
+	 * @throws Exception 
+	 */
+	public int singUp(Member member) throws Exception {
+		
+		Connection conn = getConnection();
+		
+		int result = dao.singUp(conn, member);
+		
+		// 트랜잭션 처리
 		if(result > 0) commit(conn);
 		else			rollback(conn);
 		
 		close(conn);
 		
 		return result;
+		
+		
 	}
+
+	
+
+	
 
 }
 

@@ -2,14 +2,24 @@ package edu.kh.jdbc.main.view;
 
 import java.util.Scanner;
 
+import edu.kh.jdbc.board.view.BoardView;
 import edu.kh.jdbc.common.Session;
 import edu.kh.jdbc.main.model.service.MainService;
+import edu.kh.jdbc.member.model.dto.Member;
+import edu.kh.jdbc.member.view.MemberView;
 
 public class MainView {
 	
 	private Scanner sc = new Scanner(System.in);
 	
 	private MainService service = new MainService();
+	
+	//
+	private MemberView memberView = new MemberView();
+
+	//
+	private BoardView boardView = new BoardView();
+	
 	
 	/** 메인 메뉴 출력
 	 * 
@@ -53,9 +63,9 @@ public class MainView {
 					sc.nextLine();
 					
 					switch(input) {
-					case 1 :  break;
-					case 2 :  break;
-					case 3 : 
+					case 1 : memberView.memberMenu(); break;
+//					case 2 : (); break;
+					case 3 :
 						System.out.println("\n === 로그아웃 되었습니다. ===");
 						
 						Session.loginMember = null;
@@ -77,6 +87,8 @@ public class MainView {
 		} while(input != 0);
 		
 	}
+
+
 
 
 	/** 로그인
@@ -112,42 +124,99 @@ public class MainView {
 		
 	}
 	
+	/** 회원가입
+	 * 
+	 */
 	private void singUp() {
-		System.out.println("\n[회원가입]\n");
 		
-		System.out.print("아이디 : ");
-		String memberId = sc.next();
+		// 변수 선언
+		String memberId = null;
 		
-		System.out.print("비밀번호 : ");
-		String memberPw = sc.next();
+		String memberPw = null;
+		String memberPwRe = null; // 비밀번호 확인용 변수
 		
-		System.out.print("비밀번호 재확인 : ");
-		String memberPwRe = sc.next();
+		String memberName = null;
 		
-		System.out.print("이름 : ");
-		String memberName = sc.next();
-		
-		System.out.print("성별 (M/F) : ");
-		String memberGender = sc.next();
-
+		String memberGender = null;
 		
 		try {
-			
-			int result = service.singUp(memberId, memberPw, memberName, memberGender);
-			
-			if(result > 0) {
-				System.out.println("회원 가입 성공");
-			} else {
-				System.out.println("아이디 중복");
+			// 아이디 입력
+			while(true) {
+				
+				System.out.print("아이디 입력 : ");
+				memberId = sc.next();
+				
+				// 아이디 중복 확인 서비스 호출
+				// -> 중복인 경우 1, 아니면 0 반환
+				int result = service.idCheck(memberId);
+				
+				if(result == 0) {
+					System.out.println("\n 사용 가능한 아이디입니다.\n");
+					break;
+				} else {
+					System.out.println("\n 이미 사용중인 아이디 입니다.\n");
+				}
+				
 			}
 			
+			// 비밀번호, 비밀번호 확인 입력을 받아서 둘이 같을 때 까지 무한반복
+			while(true) {
+				System.out.print("비밀번호 입력 : ");
+				memberPw = sc.next();
+				System.out.print("비밀번호 확인 : ");
+				memberPwRe = sc.next();
+				
+				if(memberPw.equals(memberPwRe)) {
+					System.out.println("\n === 비밀번호 일치 ===\n");
+					break;
+				} else {
+					System.out.println("\n == 비밀번호가 일치 하지 않습니다. == \n");
+				}
+			}
+			
+			// 이름 입력
+			System.out.print("이름 : ");
+			memberName = sc.next();
+			
+			// 성별 입력
+			// M 또는 F가 입력될 때까지 무한반복
+			while(true) {
+				System.out.print("성별 : ");
+				memberGender = sc.next().toUpperCase();
+				
+				if(memberGender.equals("M") || memberGender.equals("F")) {
+					break;
+				} else {
+					System.out.println("\n *** M또는 F만 입력해주세요 *** \n");
+				}
+			}
+			
+			// Member 객체 생성하여 입력받은 값 세팅
+			Member member = new Member();
+			member.setMemberId(memberId);
+			member.setMemberPw(memberPw);
+			member.setMemberName(memberName);
+			member.setMemberGender(memberGender);
+			
+			// 회원ㄱ가입 서비스 호출
+			int result = service.singUp(member);
+			
+			if(result > 0) {
+				System.out.println("\n ===== 회원가입 성공 ===== \n");
+			} else {
+				System.out.println("\n ===== 회원가입 성공 ===== \n");
+			}
 			
 		} catch(Exception e) {
-			System.out.println("\n *** 회원가입 중 예외발생 ***\n");
+			System.out.println("\n***** 회원 가입 중 예외 발생 *****\n");
 			e.printStackTrace();
 		}
 		
+		 
 	}
+	
+	
+	
 
 }
 

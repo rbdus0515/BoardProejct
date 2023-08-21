@@ -11,11 +11,8 @@ public class Member {
 	private String upregisterFlag; // 회원 탈퇴여부
 	
 	public Member() {}
+	
 
-	
-	
-	
-	
 	public int getMemberNo() {
 		return memberNo;
 	}

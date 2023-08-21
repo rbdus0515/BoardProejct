@@ -101,6 +101,15 @@ public class MainDAO {
 	}
 
 
+	/** 회원가입 DAO
+	 * @param conn
+	 * @param memberId
+	 * @param memberPw
+	 * @param memberName
+	 * @param memberGender
+	 * @return
+	 * @throws Exception
+	 */
 	public int singUp(Connection conn, String memberId, String memberPw,
 			String memberName, String memberGender) throws Exception {
 		
@@ -137,6 +146,66 @@ public class MainDAO {
 		
 		return result;
 	}
+
+	/** 아이디 중복검사 DAO
+	 * @param conn
+	 * @param memberId
+	 * @return
+	 */
+	public int idCheak(Connection conn, String memberId) throws Exception{
+		int result = 0;
+		
+		try {
+			
+			String sql = prop.getProperty("idCheak");
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, memberId);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+			
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	/** 회원가입 DAO
+	 * @param conn
+	 * @param mem
+	 * @return
+	 * @throws Exception
+	 */
+	public int singUp(Connection conn, Member mem) throws Exception {
+		
+		int result = 0;
+		
+		try {
+				String sql = prop.getProperty("singUp");
+				
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, mem.getMemberId());
+				pstmt.setString(2, mem.getMemberPw());
+				pstmt.setString(3, mem.getMemberName());
+				pstmt.setString(4, mem.getMemberGender());
+				
+				result = pstmt.executeUpdate();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+
+
 
 }
 
