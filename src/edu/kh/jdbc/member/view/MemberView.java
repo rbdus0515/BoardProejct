@@ -137,7 +137,7 @@ public class MemberView {
 				break;
 			}
 			
-			System.out.println("[M/F 입력]");
+			System.out.println("[M 또는 F 입력]");
 		}
 		try {
 			int result = service.updateMember(memberName, memberGender, Session.loginMember.getMemberNo());
@@ -154,8 +154,6 @@ public class MemberView {
 			} else {
 				System.out.println("\n === 수정 실패 === \n");
 			}
-			
-			
 			
 		} catch(Exception e) {
 			System.out.println("\n 내 정보 수정 중 예외 발생 \n");

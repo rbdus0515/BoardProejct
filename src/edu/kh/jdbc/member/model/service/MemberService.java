@@ -31,7 +31,7 @@ public class MemberService {
 	 * @param memberName
 	 * @param memberGender
 	 * @param memberNo
-	 * @return
+	 * @return result
 	 * @throws Exception 
 	 */
 	public int updateMember(String memberName, String memberGender, int memberNo) throws Exception {
@@ -39,12 +39,37 @@ public class MemberService {
 		
 		int result = dao.updateMember(conn, memberName, memberGender, memberNo);
 		
-		if(result>0) commit(conn);
+		if(result > 0) commit(conn);
 		else 		rollback(conn);
 		
 		close(conn);
 		
-		return 0;
+		return result;
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

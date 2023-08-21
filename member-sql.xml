@@ -16,7 +16,7 @@
 	<entry key = "updateMember">
 	UPDATE MEMBER SET
 	MEMBER_NM = ?,
-	MEMBER_GENDER = ?,
+	MEMBER_GENDER = ?
 	WHERE MEMBER_NO = ?
 	</entry>
 
