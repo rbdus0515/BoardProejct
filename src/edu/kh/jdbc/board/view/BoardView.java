@@ -70,16 +70,6 @@ public class BoardView {
 	
 	
 	
-	
-	
-	
-
-	
-
-
-
-
-
 
 
 
@@ -96,7 +86,7 @@ public class BoardView {
 			
 			// 게시글이 없는 경우
 			if(boardList.isEmpty()) {
-				System.out.println("\n ** 게시글이 존재하지 않습니다. \n");
+				System.out.println("\n ** 게시글이 존재하지 않습니다. ** \n");
 				return;
 			}
 			
@@ -200,13 +190,6 @@ public class BoardView {
 	
 
 
-
-
-
-
-
-
-
 	/** 게시글 수정
 	 * @param boardNo
 	 */
@@ -240,8 +223,6 @@ public class BoardView {
 			} else {
 				System.out.println("\n === 수정 실패 === \n");
 			}
-			
-				
 			
 		} catch(Exception e) {
 			System.out.println("\n ** 게시글 수정 중 예외발생 ** \n");

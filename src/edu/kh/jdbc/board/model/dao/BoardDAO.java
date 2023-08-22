@@ -39,7 +39,7 @@ public class BoardDAO {
 	 */
 	public List<Board> selectAllBoard(Connection conn) throws Exception {
 
-		List<Board> boardList = new ArrayList<Board>();
+		List<Board> boardList = new ArrayList<>();
 		
 		try {
 			
@@ -89,6 +89,8 @@ public class BoardDAO {
 		try {
 			
 			String sql = prop.getProperty("selectAllBoard");
+			
+			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, input);
 			
@@ -232,7 +234,7 @@ public class BoardDAO {
 			close(stmt);
 		}
 		
-		return 0;
+		return boardNo;
 	}
 
 	/** 게시글 삽입 DAO
@@ -257,7 +259,7 @@ public class BoardDAO {
 			
 			pstmt.setInt(1, boardNo);
 			pstmt.setString(2, boardTitle);
-			pstmt.setString(3,boardContent);
+			pstmt.setString(3,boardContent); // boardCotent
 			pstmt.setInt(4, memberNo);
 			
 			result = pstmt.executeUpdate();

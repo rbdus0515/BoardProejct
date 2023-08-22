@@ -60,7 +60,6 @@ public class BoardService {
 				
 			}
 			
-			
 		}
 		
 		close(conn); 
@@ -124,7 +123,7 @@ public class BoardService {
 		int boardNo = dao.nextBoardNo(conn);
 		
 		// 제목, 내용, 회원번호, 다음 게시글번호
-		int result = dao.insertBoard(conn, boardTitle, boardContent, memberNo, boardNo);
+		int result = dao.insertBoard(conn, boardTitle, boardContent, memberNo, boardNo); //boardCotent
 		
 		if(result > 0) {
 			commit(conn);
@@ -154,14 +153,6 @@ public class BoardService {
 
 
 
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
