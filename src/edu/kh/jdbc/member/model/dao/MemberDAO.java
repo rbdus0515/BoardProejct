@@ -41,7 +41,7 @@ public class MemberDAO {
 	
 	/** 회원 목록 조회 SQL 수행
 	 * @param conn
-	 * @return
+	 * @return memberList
 	 */
 	public List<Member> selectMemberList(Connection conn) throws Exception {
 		
@@ -85,7 +85,7 @@ public class MemberDAO {
 	 * @param memberName
 	 * @param memberGender
 	 * @param memberNo
-	 * @return
+	 * @return result
 	 */
 	public int updateMember(Connection conn, String memberName, String memberGender, int memberNo) throws Exception {
 	
