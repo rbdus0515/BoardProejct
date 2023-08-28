@@ -188,7 +188,7 @@ public class MainView {
 					break;
 				} else {
 					System.out.println("\n *** M또는 F만 입력해주세요 *** \n");
-				}
+				}	
 			}
 			
 			// Member 객체 생성하여 입력받은 값 세팅

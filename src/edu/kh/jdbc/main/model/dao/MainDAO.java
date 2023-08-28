@@ -48,7 +48,7 @@ public class MainDAO {
 	 * @param conn
 	 * @param memberId
 	 * @param memberPw
-	 * @return
+	 * @return member
 	 */
 	public Member login(Connection conn, String memberId, String memberPw) throws Exception{
 		
@@ -74,7 +74,7 @@ public class MainDAO {
 				
 				// String memberId = rs.getStirng("MEMBER_ID");
 				// 입력 받은 아이디 == 조회한 아이디
-				// -> DB에서 얻어오 필요가 없음
+				// -> DB에서 얻어올 필요가 없음
 				
 				String memberName = rs.getString("MEMBER_NM");
 				String memberGender = rs.getString("MEMBER_GENDER");
@@ -101,56 +101,10 @@ public class MainDAO {
 	}
 
 
-	/** 회원가입 DAO
-	 * @param conn
-	 * @param memberId
-	 * @param memberPw
-	 * @param memberName
-	 * @param memberGender
-	 * @return
-	 * @throws Exception
-	 */
-	public int singUp(Connection conn, String memberId, String memberPw,
-			String memberName, String memberGender) throws Exception {
-		
-		int result = 0;
-		
-		try {
-			
-			String searchId = prop.getProperty("serchId");
-			
-			pstmt = conn.prepareStatement(searchId);
-			
-			pstmt.setString(1, memberId);
-			
-			if(result > 0) {
-				
-				result = pstmt.executeUpdate();
-
-				String sql = prop.getProperty("singUp");
-
-				pstmt = conn.prepareStatement(sql);
-
-				pstmt.setString(1, memberId);
-				pstmt.setString(2, memberPw);
-				pstmt.setString(3, memberName);
-				pstmt.setString(4, memberGender);
-
-				result = pstmt.executeUpdate();
-			
-			}
-			
-		} finally {
-			close(pstmt);
-		}
-		
-		return result;
-	}
-
 	/** 아이디 중복검사 DAO
 	 * @param conn
 	 * @param memberId
-	 * @return
+	 * @return result
 	 */
 	public int idCheak(Connection conn, String memberId) throws Exception{
 		int result = 0;
@@ -179,7 +133,7 @@ public class MainDAO {
 	/** 회원가입 DAO
 	 * @param conn
 	 * @param mem
-	 * @return
+	 * @return result
 	 * @throws Exception
 	 */
 	public int singUp(Connection conn, Member mem) throws Exception {
